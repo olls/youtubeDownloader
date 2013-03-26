@@ -1,4 +1,4 @@
-youtubeDowloader
+YouTube Dowloader
 ================
 
 Downloads latest video from given user.
