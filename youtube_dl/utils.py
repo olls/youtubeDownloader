@@ -311,7 +311,7 @@ def clean_html(html):
     html = re.sub('<.*?>', '', html)
     # Replace html entities
     html = unescapeHTML(html)
-    return html
+    return html.strip()
 
 
 def sanitize_open(filename, open_mode):
@@ -329,7 +329,7 @@ def sanitize_open(filename, open_mode):
             if sys.platform == 'win32':
                 import msvcrt
                 msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
-            return (sys.stdout, filename)
+            return (sys.stdout.buffer if hasattr(sys.stdout, 'buffer') else sys.stdout, filename)
         stream = open(encodeFilename(filename), open_mode)
         return (stream, filename)
     except (IOError, OSError) as err:

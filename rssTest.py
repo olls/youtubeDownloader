@@ -13,4 +13,4 @@ feed = feedparser.parse(feedUrl)
 videoLink = feed['entries'][0]['links'][0]['href']
 print 'Video Link: ' + videoLink + '\n'
 
-youtube_dl.main()
+youtube_dl.main(videoLink)

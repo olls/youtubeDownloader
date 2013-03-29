@@ -302,7 +302,7 @@ def parseOpts():
 
     return parser, opts, args
 
-def _real_main(url):
+def _real_main(inputURL):
     parser, opts, args = parseOpts()
 
     # Open appropriate CookieJar
@@ -340,8 +340,8 @@ def _real_main(url):
             batchurls = [x for x in batchurls if len(x) > 0 and not re.search(r'^[#/;]', x)]
         except IOError:
             sys.exit(u'ERROR: batch file could not be read')
-    all_urls = batchurls + args
-    all_urls = [url.strip() for url in all_urls]
+    all_urls = [inputURL]#batchurls + args
+    #all_urls = [url.strip() for url in all_urls]
 
     # General configuration
     cookie_processor = compat_urllib_request.HTTPCookieProcessor(jar)
@@ -432,7 +432,7 @@ def _real_main(url):
             or (opts.useid and u'%(id)s.%(ext)s')
             or (opts.autonumber and u'%(autonumber)s-%(id)s.%(ext)s')
             or u'%(id)s.%(ext)s')
-
+    print all_urls
     # File downloader
     fd = FileDownloader({
         'usenetrc': opts.usenetrc,
@@ -535,9 +535,9 @@ def _real_main(url):
 
     sys.exit(retcode)
 
-def main(url):
+def main(inputURL):
     try:
-        _real_main(url)
+        _real_main(inputURL)
     except DownloadError:
         sys.exit(1)
     except SameFileError:
